@@ -17,9 +17,9 @@ const motorcycleSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  id: {
-    type: Number,
-    unique: true,
+  color: {
+    type: String,
+    required: true,
   },
 });
 
