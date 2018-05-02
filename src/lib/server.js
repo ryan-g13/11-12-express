@@ -4,18 +4,20 @@ import express from 'express';
 import mongoose from 'mongoose';
 import logger from './logger';
 import motorcycleRoutes from '../route/motorcycle-route';
+import loggerMiddleware from './loggerMiddleware';
+import errorMiddleware from './errorMiddleware';
 
 const app = express();
 let server = null;
 //---------------------------------------------------------------------------------
-// Vinicio - these routes will be read in-order
-// so it's important that our 404 catch-all is the last one
+app.use(loggerMiddleware);
 app.use(motorcycleRoutes);
 // Vinicio - manking sure I return a 404 status if I don't have a matching route
 app.all('*', (request, response) => {
   logger.log(logger.INFO, 'Returning a 404 from the catch-all/default route');
   return response.sendStatus(404);
 });
+app.use(errorMiddleware);
 //---------------------------------------------------------------------------------
 
 const startServer = () => {

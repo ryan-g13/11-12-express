@@ -34,8 +34,6 @@ motorcycleRouter.post('/api/motorcycles', jsonParser, (request, response) => {
 });
 
 motorcycleRouter.get('/api/motorcycles/', (request, response) => {
-  logger.log(logger.INFO, 'GET - all values in document');
-
   return Motorcycle.find() 
     .then((motorcycles) => {
       if (!motorcycles) {
@@ -53,8 +51,6 @@ motorcycleRouter.get('/api/motorcycles/', (request, response) => {
 });
 
 motorcycleRouter.get('/api/motorcycles/:id?', (request, response) => {
-  logger.log(logger.INFO, 'GET - processing a request');
-
   return Motorcycle.findById(request.params.id)
     .then((motorcycle) => { // Vinicio - note found OR note not found, but the id looks good
       if (!motorcycle) {
@@ -77,8 +73,6 @@ motorcycleRouter.get('/api/motorcycles/:id?', (request, response) => {
 });
 
 motorcycleRouter.delete('/api/motorcycles/:id?', (request, response) => {
-  logger.log(logger.INFO, 'DELETE - processing a delete');
-
   return Motorcycle.findByIdAndRemove(request.params.id)
     .then((motorcycle) => {
       if (!motorcycle) {
@@ -101,7 +95,6 @@ motorcycleRouter.delete('/api/motorcycles/:id?', (request, response) => {
 });
 
 motorcycleRouter.put('/api/motorcycles/:id?', jsonParser, (request, response) => { // add next param
-  logger.log(logger.INFO, 'PUT - processing a updated record');
   // new means mongoose will return the updated object after updating.
   const options = { runValidators: true, new: true };
 
